@@ -53,7 +53,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
       createdAt: new Date(),
     })
 
-    setTransactions((state) => [...state, response.data])
+    setTransactions((state) => [response.data, ...state])
   }
 
   useEffect(() => {
