@@ -27,7 +27,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     const url = new URL('http://localhost:3000/transactions')
 
     if (query) {
-      url.searchParams.append('q', query)
+      url.searchParams.append('q', query) // 'http://localhost:3000/transactions?q=query'.
     }
 
     const response = await fetch(url)
