@@ -5,6 +5,7 @@ import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TransactionsContext } from '../../../../contexts/TransactionsContext'
 import { useContextSelector } from 'use-context-selector'
+import { ChangeEvent } from 'react'
 
 const searchFormSchema = zod.object({
   query: zod.string(),
@@ -32,12 +33,18 @@ export function SearchForm() {
     await fetchTransactions(data.query)
   }
 
+  async function handleChangeInput(e: ChangeEvent<HTMLInputElement>) {
+    const query = e.target.value
+    await fetchTransactions(query)
+  }
+
   return (
     <SearchFormContainer onSubmit={handleSubmit(handleSearchTransactions)}>
       <input
         type="text"
         placeholder="Busque por transações"
         {...register('query')}
+        onChange={handleChangeInput}
       />
       <button type="submit" disabled={isSubmitting}>
         <MagnifyingGlass size={20} />
