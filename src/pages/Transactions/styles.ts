@@ -39,3 +39,14 @@ export const PriceHighLight = styled.span<PriceHighLightProps>`
       ? props.theme['green-300']
       : props.theme['red-300']};
 `
+
+export const ButtonDelete = styled.button`
+  background-color: transparent;
+  color: ${({ theme }) => theme.white};
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme['red-500']};
+  }
+`

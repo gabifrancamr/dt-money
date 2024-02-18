@@ -2,6 +2,7 @@ import { Header } from '../../components/Header'
 import { Summary } from '../../components/Summary'
 import { SearchForm } from './components/SearchForm'
 import {
+  ButtonDelete,
   PriceHighLight,
   TransactionsContainer,
   TransactionsTable,
@@ -9,11 +10,22 @@ import {
 import { TransactionsContext } from '../../contexts/TransactionsContext'
 import { dateFormatter, priceFromatter } from '../../utils/formatter'
 import { useContextSelector } from 'use-context-selector'
+import { Trash } from 'phosphor-react'
 
 export function Transactions() {
-  const transactions = useContextSelector(TransactionsContext, (context) => {
-    return context.transactions
-  })
+  const { transactions, deleteTransaction } = useContextSelector(
+    TransactionsContext,
+    (context) => {
+      return {
+        transactions: context.transactions,
+        deleteTransaction: context.deleteTransaction,
+      }
+    },
+  )
+
+  function handleDeleteTransaction(id: number) {
+    deleteTransaction(id)
+  }
   return (
     <div>
       <Header />
@@ -34,6 +46,13 @@ export function Transactions() {
                 </td>
                 <td>{transaction.category}</td>
                 <td>{dateFormatter.format(new Date(transaction.createdAt))}</td>
+                <td>
+                  <ButtonDelete
+                    onClick={() => handleDeleteTransaction(transaction.id)}
+                  >
+                    <Trash size={24} />
+                  </ButtonDelete>
+                </td>
               </tr>
             ))}
           </tbody>
