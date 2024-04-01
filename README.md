@@ -4,4 +4,4 @@
 
 npm install -g json-server
 
-json-server --watch server.json
+npx json-server server.json --watch
