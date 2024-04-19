@@ -30,3 +30,8 @@ export const NewTransactionButton = styled.button`
     background-color: ${({ theme }) => theme['green-700']};
   }
 `
+
+export const Buttons = styled.div`
+  display: flex;
+  gap: 1rem;
+`

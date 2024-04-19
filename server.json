@@ -55,6 +55,14 @@
       "type": "outcome",
       "createdAt": "2024-02-15T20:30:39.864Z",
       "id": 7
+    },
+    {
+      "description": "Vestido",
+      "price": 200,
+      "category": "roupa",
+      "type": "outcome",
+      "createdAt": "2024-04-17T18:27:30.921Z",
+      "id": 8
     }
   ]
 }
