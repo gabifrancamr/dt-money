@@ -2,7 +2,8 @@ import {
   Buttons,
   HeaderContainer,
   HeaderContent,
-  NewTransactionButton,
+  // NewTransactionButton,
+  NewUserButton,
 } from './styles'
 import * as Dialog from '@radix-ui/react-dialog'
 import logoImage from '../../assets/Ignite simbol.svg'
@@ -25,7 +26,7 @@ export function Header() {
 
           <Dialog.Root>
             <Dialog.Trigger asChild>
-              <NewTransactionButton>Criar usuário</NewTransactionButton>
+              <NewUserButton>Criar usuário</NewUserButton>
             </Dialog.Trigger>
 
             <NewUser />

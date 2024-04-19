@@ -15,6 +15,11 @@ export const HeaderContent = styled.div`
   align-items: center;
 `
 
+export const Buttons = styled.div`
+  display: flex;
+  gap: 1rem;
+`
+
 export const NewTransactionButton = styled.button`
   height: 50px;
   border: 0;
@@ -31,7 +36,18 @@ export const NewTransactionButton = styled.button`
   }
 `
 
-export const Buttons = styled.div`
-  display: flex;
-  gap: 1rem;
+export const NewUserButton = styled.button`
+  height: 50px;
+  border: 0;
+  background-color: ${({ theme }) => theme['green-500']};
+  color: ${({ theme }) => theme.white};
+  font-weight: bold;
+  padding: 0 1.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: ${({ theme }) => theme['green-700']};
+  }
 `

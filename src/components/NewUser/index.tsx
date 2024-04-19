@@ -1,5 +1,5 @@
 import { X } from 'phosphor-react'
-import { Content, Overlay, CloseButton } from './styles'
+import { Content, Overlay, CloseButton, ButtonCreateUser } from './styles'
 import * as Dialog from '@radix-ui/react-dialog'
 
 import { useForm } from 'react-hook-form'
@@ -129,9 +129,9 @@ export function NewUser() {
             required
           />
 
-          <button type="submit" disabled={isSubmitting}>
+          <ButtonCreateUser type="submit" disabled={isSubmitting}>
             Criar
-          </button>
+          </ButtonCreateUser>
         </form>
       </Content>
     </Dialog.Portal>
