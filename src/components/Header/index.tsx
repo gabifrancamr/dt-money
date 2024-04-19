@@ -6,7 +6,7 @@ import {
 } from './styles'
 import * as Dialog from '@radix-ui/react-dialog'
 import logoImage from '../../assets/Ignite simbol.svg'
-import { NewTransactionModal } from '../NewTransactionModal'
+// import { NewTransactionModal } from '../NewTransactionModal'
 import { NewUser } from '../NewUser'
 
 export function Header() {

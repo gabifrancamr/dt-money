@@ -2,7 +2,7 @@ import { Pencil, X } from 'phosphor-react'
 import axios from 'axios'
 import { toast } from 'sonner'
 import * as Dialog from '@radix-ui/react-dialog'
-import { CloseButton, Content, Overlay } from './styles'
+import { ButtonEdit, CloseButton, Content, Overlay } from './styles'
 import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -68,10 +68,10 @@ export function EditButton({ user }: { user: UsersProps }) {
 
   return (
     <Dialog.Root>
-      <Dialog.Trigger>
-        <button>
+      <Dialog.Trigger asChild>
+        <ButtonEdit>
           <Pencil size={20} />
-        </button>
+        </ButtonEdit>
       </Dialog.Trigger>
 
       <Dialog.Portal>

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Trash } from 'phosphor-react'
 import { toast } from 'sonner'
+import { ButtonDelete } from './styles'
 
 export function DeleteButton({ id }: { id: string }) {
   async function handleDeleteUser(id: string) {
@@ -29,8 +30,8 @@ export function DeleteButton({ id }: { id: string }) {
     }
   }
   return (
-    <button onClick={() => handleDeleteUser(id)}>
+    <ButtonDelete onClick={() => handleDeleteUser(id)}>
       <Trash size={20} />
-    </button>
+    </ButtonDelete>
   )
 }

@@ -71,3 +71,14 @@ export const CloseButton = styled(Dialog.Close)`
   cursor: pointer;
   color: ${({ theme }) => theme['gray-500']};
 `
+
+export const ButtonEdit = styled.button`
+  background-color: transparent;
+  color: ${({ theme }) => theme.white};
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme['green-500']};
+  }
+`
