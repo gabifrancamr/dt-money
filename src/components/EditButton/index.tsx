@@ -15,7 +15,6 @@ const editFormSchema = zod.object({
   mobile: zod.string(),
   username: zod.string(),
   password: zod.string(),
-  id: zod.string(),
 })
 
 type editFormInputs = zod.infer<typeof editFormSchema>
@@ -37,41 +36,34 @@ export function EditButton({ user }: { user: UsersProps }) {
     },
   })
 
-  async function handleEditUser(user: editFormInputs) {
-    // console.log('handleEditUser chamado', user)
-    // const { firstname, lastname, email, mobile, username, password, id } = user
-    // console.log(firstname)
-    //     const formData = new FormData()
-    //     formData.append('firstname', firstname)
-    //     formData.append('lastname', lastname)
-    //     formData.append('email', email)
-    //     formData.append('mobile', mobile)
-    //     formData.append('username', username)
-    //     formData.append('password', password)
-    //     formData.append('id', id)
-    //
-    //     try {
-    //       const response = await axios.post(
-    //         'https://techsoluctionscold.com.br/crud_users/api/v2/user/update',
-    //         formData,
-    //         {
-    //           headers: {
-    //             'Content-Type': 'multipart/form-data',
-    //           },
-    //         },
-    //       )
-    //
-    //       console.log('response => ', response.data)
-    //       toast.success(response.data.message)
-    //     } catch (error) {
-    //       toast.error('Erro ao editar')
-    //     }
-  }
+  async function handleEditUser(formInfo: editFormInputs) {
+    const { firstname, lastname, email, mobile, username, password } = formInfo
 
-  async function handleSubmitForm(data: editFormInputs) {
-    console.log('Formulário enviado:', data)
-    await handleEditUser(data) // Chama a função teste
-    // Aqui você pode adicionar o código para lidar com o envio do formulário
+    const formData = new FormData()
+    formData.append('firstname', firstname)
+    formData.append('lastname', lastname)
+    formData.append('email', email)
+    formData.append('mobile', mobile)
+    formData.append('username', username)
+    formData.append('password', password)
+    formData.append('id', user.id)
+
+    try {
+      const response = await axios.post(
+        'https://techsoluctionscold.com.br/crud_users/api/v2/user/update',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      )
+
+      console.log('response => ', response.data)
+      toast.success(response.data.message)
+    } catch (error) {
+      toast.error('Erro ao editar')
+    }
   }
 
   return (
@@ -90,7 +82,7 @@ export function EditButton({ user }: { user: UsersProps }) {
             <X size={24} />
           </CloseButton>
 
-          <form onSubmit={handleSubmit(handleSubmitForm)}>
+          <form onSubmit={handleSubmit(handleEditUser)}>
             <input
               {...register('firstname')}
               type="text"
