@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { UsersProps } from '../../pages/Users'
+import { useState } from 'react'
 
 const editFormSchema = zod.object({
   firstname: zod.string(),
@@ -20,6 +21,7 @@ const editFormSchema = zod.object({
 type editFormInputs = zod.infer<typeof editFormSchema>
 
 export function EditButton({ user }: { user: UsersProps }) {
+  const [open, setOpen] = useState(false)
   const {
     register,
     handleSubmit,
@@ -60,6 +62,7 @@ export function EditButton({ user }: { user: UsersProps }) {
       )
 
       console.log('response => ', response.data)
+      setOpen(false)
       toast.success(response.data.message)
     } catch (error) {
       toast.error('Erro ao editar')
@@ -67,7 +70,7 @@ export function EditButton({ user }: { user: UsersProps }) {
   }
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
         <ButtonEdit>
           <Pencil size={20} />
