@@ -1,6 +1,4 @@
-import axios from 'axios'
 import { Trash, X } from 'phosphor-react'
-import { toast } from 'sonner'
 import {
   ButtonDelete,
   ButtonsOptions,
@@ -11,29 +9,16 @@ import {
   Overlay,
 } from './styles'
 import * as Dialog from '@radix-ui/react-dialog'
+import { useContext } from 'react'
+import { UsersContext } from '../../contexts/UsersContext'
 
 export function DeleteButton({ id }: { id: string }) {
+  const { deleteUser } = useContext(UsersContext)
+
   async function handleDeleteUser(id: string) {
-    const formData = new FormData()
-    formData.append('id', id)
-
-    try {
-      const response = await axios.post(
-        'https://techsoluctionscold.com.br/crud_users/api/v2/user/delete',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-      )
-
-      console.log('response => ', response.data)
-      toast.success(response.data.message)
-    } catch (error) {
-      toast.error('Erro ao apagar')
-    }
+    await deleteUser(id)
   }
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>

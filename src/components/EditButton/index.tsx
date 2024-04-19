@@ -1,13 +1,15 @@
 import { Pencil, X } from 'phosphor-react'
-import axios from 'axios'
-import { toast } from 'sonner'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ButtonEdit, CloseButton, Content, Overlay } from './styles'
 import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { UsersProps } from '../../pages/Users'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import {
+  EditUserTypes,
+  UsersContext,
+  UsersProps,
+} from '../../contexts/UsersContext'
 
 const editFormSchema = zod.object({
   firstname: zod.string(),
@@ -22,6 +24,9 @@ type editFormInputs = zod.infer<typeof editFormSchema>
 
 export function EditButton({ user }: { user: UsersProps }) {
   const [open, setOpen] = useState(false)
+
+  const { editUser } = useContext(UsersContext)
+
   const {
     register,
     handleSubmit,
@@ -39,34 +44,18 @@ export function EditButton({ user }: { user: UsersProps }) {
   })
 
   async function handleEditUser(formInfo: editFormInputs) {
-    const { firstname, lastname, email, mobile, username, password } = formInfo
+    const id = user.id
 
-    const formData = new FormData()
-    formData.append('firstname', firstname)
-    formData.append('lastname', lastname)
-    formData.append('email', email)
-    formData.append('mobile', mobile)
-    formData.append('username', username)
-    formData.append('password', password)
-    formData.append('id', user.id)
-
-    try {
-      const response = await axios.post(
-        'https://techsoluctionscold.com.br/crud_users/api/v2/user/update',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-      )
-
-      console.log('response => ', response.data)
-      setOpen(false)
-      toast.success(response.data.message)
-    } catch (error) {
-      toast.error('Erro ao editar')
+    const data: EditUserTypes = {
+      data: {
+        formInfo,
+        id,
+      },
     }
+
+    await editUser(data)
+
+    setOpen(false)
   }
 
   return (

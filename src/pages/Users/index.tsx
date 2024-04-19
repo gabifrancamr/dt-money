@@ -1,41 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { Header } from '../../components/Header'
 import { SearchForm } from '../../components/SearchForm'
 import { TransactionsContainer, TransactionsTable } from './styles'
 
-import axios from 'axios'
 import { DeleteButton } from '../../components/DeleteButton'
 import { EditButton } from '../../components/EditButton'
 
-export interface UsersProps {
-  id: string
-  firstname: string
-  lastname: string
-  email: string
-  mobile: string
-  username: string
-  password: string
-  created_at: string
-  updated_at: string
-  deleted_at: string
-}
+import { UsersContext } from '../../contexts/UsersContext'
 
 export function CreateNewUser() {
-  const [users, setUsers] = useState<UsersProps[]>([])
-
-  useEffect(() => {
-    async function fetchUsers() {
-      const response = await axios.post(
-        'https://techsoluctionscold.com.br/crud_users/api/v2/users',
-      )
-
-      setUsers(response.data.data)
-
-      console.log('list users => 14:33', response.data.data)
-    }
-
-    fetchUsers()
-  }, [])
+  const { showUsers } = useContext(UsersContext)
 
   return (
     <div>
@@ -44,7 +18,7 @@ export function CreateNewUser() {
         <SearchForm />
         <TransactionsTable>
           <tbody>
-            {users.map((user) => (
+            {showUsers.map((user) => (
               <tr key={user.id}>
                 <td>{user.firstname}</td>
                 <td>{user.lastname}</td>

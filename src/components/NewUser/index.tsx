@@ -5,8 +5,8 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import axios, { AxiosError } from 'axios'
-import { toast } from 'sonner'
+import { useContext } from 'react'
+import { UsersContext } from '../../contexts/UsersContext'
 
 const newUserFormSchema = zod.object({
   firstname: zod.string(),
@@ -20,6 +20,7 @@ const newUserFormSchema = zod.object({
 type newUserFormInputs = zod.infer<typeof newUserFormSchema>
 
 export function NewUser() {
+  const { createUser } = useContext(UsersContext)
   const {
     register,
     handleSubmit,
@@ -28,48 +29,6 @@ export function NewUser() {
   } = useForm<newUserFormInputs>({
     resolver: zodResolver(newUserFormSchema),
   })
-
-  async function createUser(data: newUserFormInputs) {
-    const { firstname, lastname, email, mobile, username, password } = data
-
-    const formData = new FormData()
-    formData.append('firstname', firstname)
-    formData.append('lastname', lastname)
-    formData.append('email', email)
-    formData.append('mobile', mobile)
-    formData.append('username', username)
-    formData.append('password', password)
-
-    try {
-      const response = await axios.post(
-        'https://techsoluctionscold.com.br/crud_users/api/v2/user/create',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-      )
-
-      console.log('response => ', response.data)
-      toast.success(response.data.message)
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError
-
-        const responseData = axiosError.response?.data as { message: string }
-
-        if (responseData) {
-          toast.error(responseData.message)
-        } else {
-          toast.error('Erro ao criar usuário')
-        }
-      } else {
-        console.error('Error creating user:', error)
-        toast.error('Erro ao criar usuário')
-      }
-    }
-  }
 
   async function handleNewUser(data: newUserFormInputs) {
     const { firstname, lastname, email, mobile, username, password } = data
