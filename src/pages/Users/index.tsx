@@ -21,8 +21,6 @@ export interface UsersProps {
 }
 
 export function CreateNewUser() {
-  // const { transactions } = useContext(TransactionsContext)
-
   const [users, setUsers] = useState<UsersProps[]>([])
 
   useEffect(() => {
